@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WatchGame.Data;
+using WatchGame.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,13 @@ builder.Services.AddDbContext<WatchGameContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("WatchGameContext")));
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    SeedData.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
