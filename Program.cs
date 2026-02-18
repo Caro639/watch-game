@@ -1,7 +1,24 @@
+using Microsoft.EntityFrameworkCore;
+using WatchGame.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddDbContext<WatchGameContext>(options =>
+        options.UseSqlite(builder.Configuration.GetConnectionString("WatchGameContext")));
+}
+else
+{
+    builder.Services.AddDbContext<WatchGameContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("ProductionWatchGameContext")));
+}
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<WatchGameContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("WatchGameContext")));
 
 var app = builder.Build();
 
@@ -14,16 +31,14 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapStaticAssets();
-
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
 app.Run();
