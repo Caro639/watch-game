@@ -95,3 +95,4 @@ c:\Users\P193\WatchGame\obj\Debug\net10.0\refint\WatchGame.dll
 c:\Users\P193\WatchGame\obj\Debug\net10.0\WatchGame.pdb
 C:\Users\P193\WatchGame\obj\Debug\net10.0\WatchGame.genruntimeconfig.cache
 C:\Users\P193\WatchGame\obj\Debug\net10.0\ref\WatchGame.dll
+c:\Users\P193\WatchGame\obj\Debug\net10.0\WatchGame.sourcelink.json
