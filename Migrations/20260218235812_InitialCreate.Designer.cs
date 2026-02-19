@@ -11,7 +11,7 @@ using WatchGame.Data;
 namespace WatchGame.Migrations
 {
     [DbContext(typeof(WatchGameContext))]
-    [Migration("20260218185151_InitialCreate")]
+    [Migration("20260218235812_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -30,6 +30,9 @@ namespace WatchGame.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<string>("Rating")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("ReleaseDate")

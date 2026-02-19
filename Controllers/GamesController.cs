@@ -20,9 +20,38 @@ namespace WatchGame.Controllers
         }
 
         // GET: Games
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string gameGenre, string searchString)
         {
-            return View(await _context.Game.ToListAsync());
+            if (_context.Game == null)
+            {
+                return Problem("Entity set 'WatchGameContext.Game'  is null.");
+            }
+
+            // Use LINQ to get list of genres.
+            IQueryable<string> genreQuery = from g in _context.Game
+                                            orderby g.Genre
+                                            select g.Genre;
+
+            var games = from g in _context.Game
+                        select g;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                games = games.Where(s => s.Title!.ToUpper().Contains(searchString.ToUpper()));
+            }
+
+            if (!string.IsNullOrEmpty(gameGenre))
+            {
+                games = games.Where(x => x.Genre == gameGenre);
+            }
+
+            var gameGenreVM = new GameGenreViewModel
+            {
+                Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
+                Games = await games.ToListAsync()
+            };
+
+            return View(gameGenreVM);
         }
 
         // GET: Games/Details/5
@@ -54,7 +83,7 @@ namespace WatchGame.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,ReleaseDate,Genre,Price")] Game game)
+        public async Task<IActionResult> Create([Bind("Id,Title,ReleaseDate,Genre,Price,Rating")] Game game)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +115,7 @@ namespace WatchGame.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,Genre,Price")] Game game)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,Genre,Price,Rating")] Game game)
         {
             if (id != game.Id)
             {
