@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WatchGame")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+df308c488fc3b1333b7b6faea4837be7a1d8b946")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+13a33e60a6b9420fa42403d12652038100c593ff")]
 [assembly: System.Reflection.AssemblyProductAttribute("WatchGame")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WatchGame")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

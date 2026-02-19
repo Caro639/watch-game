@@ -16,6 +16,8 @@ else
 }
 
 // Add services to the container.
+builder.Services.AddValidation();
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<WatchGameContext>(options =>
